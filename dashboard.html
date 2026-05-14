@@ -13,23 +13,27 @@
     <div class="dashboard-container">
         
         <!-- Panel Lateral (Sidebar) -->
-        <aside class="sidebar">
-            <div class="perfil-usuario">
-                <div class="avatar">🧑‍🚀</div>
-                <h2>Explorador_Alex</h2>
-                <p class="rango">Hacker Novato</p>
+       <div class="contenedor-burbuja">
+            
+            <div id="menu-flotante" class="menu-flotante oculto">
+                <div class="perfil-flotante">
+                    <h3 id="nombre-lateral">Cargando...</h3> 
+                    <p class="rango-flotante">Hacker Novato</p>
+                </div>
+                <nav class="opciones-flotantes">
+                    <a href="#" class="activo" data-target="vista-cabina">🚀 Mi Cabina</a>
+                    <a href="#" data-target="vista-mapa">🗺️ Mapa Estelar</a>
+                    <a href="#" data-target="vista-medallas">🏆 Mis Medallas</a>
+                    <a href="#" data-target="vista-ajustes">⚙️ Ajustes</a>
+                </nav>
+                <button class="btn-salir btn-salir-flotante">Cerrar Sesión</button>
             </div>
             
-            <nav class="menu-dashboard">
-                <!-- Agregamos data-target para saber qué pestaña abrir -->
-                <a href="#" class="activo" data-target="vista-cabina">🚀 Mi Cabina</a>
-                <a href="#" data-target="vista-mapa">🗺️ Mapa Estelar</a>
-                <a href="#" data-target="vista-medallas">🏆 Mis Medallas</a>
-                <a href="#" data-target="vista-ajustes">⚙️ Ajustes</a>
-            </nav>
-            
-            <button class="btn-salir" onclick="window.location.href='index.html'">Cerrar Sesión</button>
-        </aside>
+            <button id="btn-burbuja" class="burbuja-btn">
+                <span class="avatar-burbuja">🧑‍🚀</span>
+            </button>
+
+        </div>
 
         <!-- Área Principal (Cabina Central) -->
         <main class="dashboard-main">
