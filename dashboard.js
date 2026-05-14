@@ -3,21 +3,14 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebas
 import { getAuth, onAuthStateChanged, signOut, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
-// 2. PEGA AQUÍ TU CONFIGURACIÓN DE FIREBASE
+// 2. CONFIGURACIÓN DE FIREBASE
 const firebaseConfig = {
-
   apiKey: "AIzaSyB_6x_Y3k2G8nGj9C4gHNy1EI-cdV-75ek",
-
   authDomain: "innovacodehub.firebaseapp.com",
-
   projectId: "innovacodehub",
-
   storageBucket: "innovacodehub.firebasestorage.app",
-
   messagingSenderId: "280891701438",
-
   appId: "1:280891701438:web:7e6c49e695d95c341646ef"
-
 };
 
 const app = initializeApp(firebaseConfig);
@@ -46,9 +39,22 @@ const catalogoMedallas = [
 
 // 4. TODO LO QUE PASA CUANDO CARGA LA PÁGINA
 document.addEventListener('DOMContentLoaded', () => {
+
+    // =========================================
+    // 🔲 MOTOR DEL PERFIL PLEGABLE
+    // =========================================
+    const perfilInteractivo = document.getElementById('perfil-interactivo');
+    if (perfilInteractivo) {
+        perfilInteractivo.addEventListener('click', () => {
+            perfilInteractivo.classList.toggle('collapsed');
+        });
+    }
+
+    let docRefGlobal = null; 
+
     // --- REFERENCIAS A LA PANTALLA ---
     const nombreUsuarioUI = document.getElementById('nombre-header');
-    const nombreLateralUI = document.querySelector('.perfil-usuario h2');
+    const nombreLateralUI = document.getElementById('nombre-lateral');
     const xpTextoUI = document.querySelector('.xp-texto');
     const barraXpUI = document.querySelector('.barra-xp-progreso');
     const tituloMisionUI = document.querySelector('.mision-info h2');
@@ -56,12 +62,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnSalir = document.querySelector('.btn-salir');
     const btnJugar = document.querySelector('.btn-jugar');
     
-    // Referencias de Ajustes
     const inputAjustesNombre = document.getElementById('input-ajustes-nombre');
     const inputAjustesEmail = document.getElementById('input-ajustes-email');
     const btnResetPassword = document.getElementById('btn-reset-password');
 
-    // Referencias para Sonido y Accesibilidad (Modo Daltónico)
     const toggleSonidos = document.getElementById('toggle-sonidos');
     const toggleMusica = document.getElementById('toggle-musica');
     const toggleDaltonico = document.getElementById('toggle-daltonico');
@@ -69,17 +73,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const audioMusica = document.getElementById('audio-musica');
 
     // --- LÓGICA DEL MENÚ DE PESTAÑAS (SPA) ---
-    const menuLinks = document.querySelectorAll('.menu-dashboard a');
+    const menuLinks = document.querySelectorAll('.opciones-flotantes a');
     const vistas = document.querySelectorAll('.vista-seccion');
 
     menuLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault(); 
-            // Cambiar botones
             menuLinks.forEach(l => l.classList.remove('activo'));
             link.classList.add('activo');
 
-            // Cambiar vistas
             vistas.forEach(vista => vista.classList.add('oculto'));
             const targetId = link.getAttribute('data-target');
             const vistaObjetivo = document.getElementById(targetId);
@@ -87,7 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- FUNCIONES DE DIBUJO ---
     function renderizarMedallas(medallasDelUsuario) {
         const contenedorMedallas = document.getElementById('contenedor-medallas');
         if(!contenedorMedallas) return;
@@ -154,54 +155,57 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- CONEXIÓN CON FIREBASE ---
+    // --- CONEXIÓN CON FIREBASE (CON BLINDAJE ANTI-CRASH) ---
     onAuthStateChanged(auth, async (user) => {
         if (user) {
-            const docRef = doc(db, "usuarios", user.uid);
-            const docSnap = await getDoc(docRef);
+            try {
+                const docRef = doc(db, "usuarios", user.uid);
+                const docSnap = await getDoc(docRef);
 
-            if (docSnap.exists()) {
-                const datosAlumno = docSnap.data();
-                // Guardamos la referencia para poder actualizarla después
-                docRefGlobal = docRef;
+                if (docSnap.exists()) {
+                    const datosAlumno = docSnap.data();
+                    docRefGlobal = docRef; 
 
-                // Leer los ajustes de la nube (si no existen, ponemos valores por defecto)
-                const misAjustes = datosAlumno.ajustes || { daltonico: false, musica: false, sonidos: true };
+                    const misAjustes = datosAlumno.ajustes || { daltonico: false, musica: false, sonidos: true };
 
-                if (misAjustes.daltonico) {
-                    if(toggleDaltonico) toggleDaltonico.checked = true;
-                    document.body.classList.add('modo-daltonico');
+                    if (misAjustes.daltonico && toggleDaltonico) {
+                        toggleDaltonico.checked = true;
+                        document.body.classList.add('modo-daltonico');
+                    }
+                    if (misAjustes.musica && toggleMusica) toggleMusica.checked = true;
+                    if (misAjustes.sonidos === false && toggleSonidos) toggleSonidos.checked = false;
+                    
+                    // Blindaje de seguridad
+                    const correoSeguro = datosAlumno.email || user.email || "Cadete@nave";
+                    const apodo = correoSeguro.split('@')[0];
+                    const nivelSeguro = datosAlumno.nivel_actual || 1;
+                    const xpSegura = datosAlumno.xp_total || 0;
+                    
+                    if(nombreUsuarioUI) nombreUsuarioUI.innerHTML = apodo;
+                    if(nombreLateralUI) nombreLateralUI.innerHTML = `Explorador_${apodo}`;
+                    if(inputAjustesNombre) inputAjustesNombre.value = `Explorador_${apodo}`;
+                    if(inputAjustesEmail) inputAjustesEmail.value = user.email;
+                    
+                    if(xpTextoUI) xpTextoUI.innerHTML = `<span>Nivel ${nivelSeguro}</span><span>${xpSegura} / 1000 XP</span>`;
+                    if(tituloMisionUI) tituloMisionUI.innerHTML = `Nivel ${nivelSeguro}: ${titulosMisiones[nivelSeguro] || "Misión Secreta"}`;
+                    if(descripcionMisionUI) descripcionMisionUI.innerHTML = "¡Prepárate para programar! La nave te necesita.";
+
+                    setTimeout(() => {
+                        let porcentaje = (xpSegura / 1000) * 100;
+                        if(barraXpUI) barraXpUI.style.width = `${porcentaje}%`;
+                    }, 500);
+
+                    renderizarMedallas(datosAlumno.medallas || []);
+                    renderizarMapa(nivelSeguro);
+                    renderizarSalaTrofeos(datosAlumno.medallas || []);
+                    
+                } else {
+                    if(tituloMisionUI) tituloMisionUI.innerHTML = "⚠️ Perfil no encontrado";
+                    if(descripcionMisionUI) descripcionMisionUI.innerHTML = "Cierra sesión y vuelve a registrarte, por favor.";
                 }
-                if (misAjustes.musica) {
-                    if(toggleMusica) toggleMusica.checked = true;
-                }
-                if (misAjustes.sonidos === false) { 
-                    if(toggleSonidos) toggleSonidos.checked = false;
-                }
-                const apodo = datosAlumno.email.split('@')[0];
-                
-                // Pintar datos del usuario
-                if(nombreUsuarioUI) nombreUsuarioUI.innerHTML = apodo;
-                if(nombreLateralUI) nombreLateralUI.innerHTML = `Explorador_${apodo}`;
-                
-                // Pintar Ajustes
-                if(inputAjustesNombre) inputAjustesNombre.value = `Explorador_${apodo}`;
-                if(inputAjustesEmail) inputAjustesEmail.value = user.email;
-                
-                // Pintar Barra de XP y Misión Actual
-                if(xpTextoUI) xpTextoUI.innerHTML = `<span>Nivel ${datosAlumno.nivel_actual}</span><span>${datosAlumno.xp_total} / 1000 XP</span>`;
-                if(tituloMisionUI) tituloMisionUI.innerHTML = `Nivel ${datosAlumno.nivel_actual}: ${titulosMisiones[datosAlumno.nivel_actual] || "Misión Secreta"}`;
-                if(descripcionMisionUI) descripcionMisionUI.innerHTML = "¡Prepárate para programar! La nave te necesita.";
-
-                setTimeout(() => {
-                    let porcentaje = (datosAlumno.xp_total / 1000) * 100;
-                    if(barraXpUI) barraXpUI.style.width = `${porcentaje}%`;
-                }, 500);
-
-                // LLAMAR A LAS FUNCIONES DE LAS PESTAÑAS
-                renderizarMedallas(datosAlumno.medallas || []);
-                renderizarMapa(datosAlumno.nivel_actual);
-                renderizarSalaTrofeos(datosAlumno.medallas || []);
+            } catch (error) {
+                if(tituloMisionUI) tituloMisionUI.innerHTML = "📡 Interferencia Espacial";
+                if(descripcionMisionUI) descripcionMisionUI.innerHTML = "No pudimos conectar con los satélites.";
             }
         } else {
             window.location.href = "index.html";
@@ -233,14 +237,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
     // --- LÓGICA DE SONIDOS Y MODO DALTÓNICO ---
-
-    // --- LÓGICA DE SONIDOS Y MODO DALTÓNICO (EN LA NUBE) ---
-    
-    // Variable para saber a quién actualizar
-    let docRefGlobal = null; 
-
-    // 1. Efectos de Sonido en el Menú
     menuLinks.forEach(link => {
         link.addEventListener('click', () => {
             if (toggleSonidos && toggleSonidos.checked && audioEfecto) {
@@ -250,7 +248,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 2. Guardar Música de Fondo en Firebase
     if (toggleMusica && audioMusica) {
         toggleMusica.addEventListener('change', async (e) => {
             const prendido = e.target.checked;
@@ -259,12 +256,10 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 audioMusica.pause(); 
             }
-            // Subir a la nube
             if(docRefGlobal) await updateDoc(docRefGlobal, { "ajustes.musica": prendido });
         });
     }
 
-    // 3. Guardar Modo Daltónico en Firebase
     if (toggleDaltonico) {
         toggleDaltonico.addEventListener('change', async (e) => {
             const prendido = e.target.checked;
@@ -273,8 +268,36 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 document.body.classList.remove('modo-daltonico'); 
             }
-            // Subir a la nube
             if(docRefGlobal) await updateDoc(docRefGlobal, { "ajustes.daltonico": prendido });
         });
     }
 });
+
+// =========================================
+// 🎈 LÓGICA DE LA BURBUJA FLOTANTE
+// =========================================
+const inicializarBurbuja = () => {
+    const btnBurbuja = document.getElementById('btn-burbuja');
+    const menuFlotante = document.getElementById('menu-flotante');
+
+    if (btnBurbuja && menuFlotante) {
+        // Al hacer clic en el astronauta
+        btnBurbuja.addEventListener('click', (e) => {
+            e.stopPropagation(); // Evita que se cierre al instante
+            menuFlotante.classList.toggle('oculto');
+        });
+
+        // Cerrar el menú si dan clic en cualquier otra parte de la pantalla
+        document.addEventListener('click', (e) => {
+            if (!menuFlotante.contains(e.target) && e.target !== btnBurbuja) {
+                menuFlotante.classList.add('oculto');
+            }
+        });
+    }
+};
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', inicializarBurbuja);
+} else {
+    inicializarBurbuja();
+}
