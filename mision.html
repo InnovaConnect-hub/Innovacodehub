@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Misión 3 | InnovaCodeHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="mision-body">
+
+    <!-- Barra de Navegación Superior -->
+    <nav class="mision-nav">
+        <a href="dashboard.html" class="btn-volver">⬅️ Volver a la Nave</a>
+        <div class="mision-titulo-top">
+            <span class="etiqueta-nivel">Nivel 3</span>
+            <h2>Motores de Movimiento</h2>
+        </div>
+        <div class="xp-actual">🌟 450 XP</div>
+    </nav>
+
+    <!-- Contenedor Principal Dividido -->
+    <main class="mision-layout">
+        
+        <!-- Panel Izquierdo: Instrucciones y Video -->
+        <section class="panel-instrucciones">
+            <div class="video-container">
+                <!-- Aquí iría un iframe de YouTube o el video de la clase -->
+                <div class="video-placeholder">
+                    <span>▶️ Reproducir Transmisión del Capitán</span>
+                </div>
+            </div>
+
+            <div class="objetivos-mision">
+                <h3>📋 Objetivos de la Misión</h3>
+                <p>Tu nave está varada. Necesitamos programar los motores usando coordenadas X y Y en mBlock para moverla.</p>
+                
+                <ul class="checklist-gamer" id="lista-tareas">
+                    <li>
+                        <label>
+                            <input type="checkbox" class="tarea-checkbox">
+                            <span class="custom-checkbox"></span>
+                            Abre mBlock y añade el "Sprite" de la Nave.
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="checkbox" class="tarea-checkbox">
+                            <span class="custom-checkbox"></span>
+                            Coloca el bloque: <code>al presionar bandera verde</code>.
+                        </label>
+                    </li>
+                    <li>
+                        <label>
+                            <input type="checkbox" class="tarea-checkbox">
+                            <span class="custom-checkbox"></span>
+                            Usa el bloque <code>ir a x:0 y:0</code> para centrarla.
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Panel Derecho: Interfaz simulada o de apoyo -->
+        <section class="panel-trabajo">
+            <div class="alerta-pista">
+                <strong>💡 Pista de Sistema:</strong> Recuerda que la letra "X" mueve la nave de izquierda a derecha (horizontal) y la "Y" de arriba hacia abajo (vertical).
+            </div>
+
+            <div class="mblock-mockup">
+                <div class="mblock-header">
+                    <span>Transmisión de Datos</span>
+                    <span>Evidencia de Misión</span>
+                </div>
+                <div class="mblock-body" id="area-subida" style="position: relative; padding: 20px; height: calc(100% - 40px); display: flex; align-items: center; justify-content: center;">
+                    
+                    <label for="input-captura" class="zona-drop" id="label-drop">
+                        <div class="icono-subir">📸</div>
+                        <p style="color: #475569; font-weight: bold; margin-bottom: 5px;">Haz clic para subir tu código</p>
+                        <span class="nota-formatos">Formatos: JPG, PNG</span>
+                    </label>
+                    <input type="file" id="input-captura" accept="image/png, image/jpeg" style="display: none;">
+                    
+                    <img id="preview-captura" src="" alt="Tu código" style="display: none; max-width: 100%; max-height: 100%; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                    
+                    <button id="btn-cambiar-foto" style="display: none; position: absolute; bottom: 10px; right: 10px; background: #ef4444; color: white; border: none; padding: 8px 15px; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 0.8rem;">🗑️ Cambiar foto</button>
+
+                </div>
+            </div>
+
+            <!-- Este botón se activará cuando todas las tareas estén marcadas -->
+            <button id="btn-completar" class="btn-completar bloqueado" disabled>
+                🔒 COMPLETAR MISIÓN (+100 XP)
+            </button>
+        </section>
+
+    </main>
+
+<script type="module" src="mision.js"></script>
+</body>
+</html>

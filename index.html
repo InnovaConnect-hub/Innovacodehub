@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aventura de Programación | InnovaCodeHub</title>
+    <!-- Fuentes de Google: Fredoka para títulos, Inter para textos -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navegación -->
+    <header class="navbar">
+        <img src="Logo.png" alt="Logo InnovaCodeHub" class="logo-img">
+         <div class="botones-nav">
+    <button class="btn-login" id="btn-ingresar">Iniciar Sesión</button>
+    
+    <button id="btn-profe-index" style="background: transparent; border: 1px solid #ef4444; color: #ef4444; padding: 10px 20px; border-radius: 25px; cursor: pointer; font-weight: bold; margin-left: 10px;">
+        👨‍🏫 Acceso Profesores
+    </button>
+</div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <!-- Elementos decorativos flotantes -->
+        <div class="decoracion-flotante cubo"></div>
+        <div class="decoracion-flotante esfera"></div>
+
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>¡Aprende a Programar Creando Tus Propios <span class="highlight">Videojuegos!</span> 🚀</h1>
+                <p>Taller gratuito de programación y pensamiento lógico con mBlock para niños de primaria. Pasa de jugar videojuegos a crearlos.</p>
+                <button class="btn-cta">🎮 Comenzar la Aventura</button>
+            </div>
+            
+            <div class="hero-visual">
+                <!-- Contenedor simulando la imagen 3D -->
+                <div class="visual-mockup">
+                    <p>[Aquí va la ilustración 3D del niño con el robot y bloques de código]</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Confianza -->
+    <section class="confianza">
+        <div class="confianza-header">
+            <h2>Por qué aprender con <span class="highlight">InnovaCodeHub</span></h2>
+            <p>Pasamos de ser consumidores de tecnología a creadores. Desarrollamos habilidades para el futuro en un entorno diseñado para niños.</p>
+        </div>
+
+        <div class="cards-container">
+            <!-- Tarjeta 1 -->
+            <div class="card">
+                <div class="card-icon">🔒</div>
+                <h3>Entorno Seguro</h3>
+                <p>Plataforma sin recolección de datos personales, con contenido 100% apto y diseñado para estudiantes de primaria.</p>
+            </div>
+
+            <!-- Tarjeta 2 -->
+            <div class="card">
+                <div class="card-icon">🧠</div>
+                <h3>Lógica y Matemáticas</h3>
+                <p>Fomentamos el pensamiento crítico y la resolución de problemas mediante retos interactivos y creación de videojuegos.</p>
+            </div>
+
+            <!-- Tarjeta 3 -->
+            <div class="card">
+                <div class="card-icon">💙</div>
+                <h3>Cero Costo</h3>
+                <p>Un proyecto educativo y social impulsado para democratizar el acceso a la tecnología y la programación desde temprana edad.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mapa de la Misión (Temario) -->
+    <section class="mapa-mision">
+        <div class="mapa-header">
+            <h2>🗺️ Tu Ruta de <span class="highlight">Entrenamiento</span></h2>
+            <p>Completa las misiones, gana experiencia y conviértete en un Hacker Junior.</p>
+        </div>
+
+        <div class="ruta-container">
+            <!-- Línea conectora del mapa -->
+            <div class="linea-ruta"></div>
+
+            <!-- Nivel 1 (Desbloqueado/Completado) -->
+            <div class="nivel completado">
+                <div class="nivel-icono">✅</div>
+                <div class="nivel-info">
+                    <span class="etiqueta-nivel">Nivel 1</span>
+                    <h3>Entrenamiento de Astronautas</h3>
+                    <p>Lógica Digital: Descubre qué es un algoritmo pensando paso a paso.</p>
+                </div>
+            </div>
+
+            <!-- Nivel 2 (Nivel Actual - Activo) -->
+            <div class="nivel activo">
+                <div class="nivel-icono animacion-pulso">🚀</div>
+                <div class="nivel-info">
+                    <span class="etiqueta-nivel">Nivel 2</span>
+                    <h3>Abordando la Nave</h3>
+                    <p>Interfaz y entorno: Explora mBlock y descubre los bloques mágicos.</p>
+                </div>
+            </div>
+
+            <!-- Nivel 3 (Bloqueado) -->
+            <div class="nivel bloqueado">
+                <div class="nivel-icono">🔒</div>
+                <div class="nivel-info">
+                    <span class="etiqueta-nivel">Nivel 3</span>
+                    <h3>Motores de Movimiento</h3>
+                    <p>Misión bloqueada. Completa el Nivel 2 para acceder.</p>
+                </div>
+            </div>
+            
+            <!-- Nivel 8 (Meta Final) -->
+            <div class="nivel meta-final bloqueado">
+                <div class="nivel-icono">🏆</div>
+                <div class="nivel-info">
+                    <span class="etiqueta-nivel">Nivel 8</span>
+                    <h3>El Gran Despegue</h3>
+                    <p>Construye tu videojuego final y obtén tu diploma.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Galería (Sneak Peek) -->
+    <section class="galeria">
+        <div class="galeria-header">
+            <h2>🎮 Mira lo que vas a <span class="highlight">Crear</span></h2>
+            <p>No es magia, es código. Descubre los proyectos que construirás con tus propias manos.</p>
+        </div>
+
+        <div class="grid-galeria">
+            <!-- Imagen 1: Interfaz de mBlock -->
+            <div class="item-galeria ancho-doble">
+                <div class="imagen-placeholder mblock-ui">
+                    <span>Bloques de Código Mágicos 🧩</span>
+                </div>
+            </div>
+
+            <!-- Imagen 2: Personaje -->
+            <div class="item-galeria">
+                <div class="imagen-placeholder personaje">
+                    <span>Diseña tus Sprites 👾</span>
+                </div>
+            </div>
+
+            <!-- Imagen 3: Videojuego -->
+            <div class="item-galeria">
+                <div class="imagen-placeholder juego-naves">
+                    <span>Naves en el Espacio 🚀</span>
+                </div>
+            </div>
+
+            <!-- Imagen 4: Robótica (Opcional, conecta con tu background) -->
+            <div class="item-galeria ancho-doble">
+                <div class="imagen-placeholder robotica">
+                    <span>Controla Robots Reales 🤖</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Pie de Página -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>🚀 InnovaCodeHub</h3>
+                <p>Formando a los creadores tecnológicos del mañana mediante aprendizaje interactivo y gamificado.</p>
+            </div>
+            
+            <div class="footer-links">
+                <div class="link-column">
+                    <h4>Misiones</h4>
+                    <a href="#">Temario completo</a>
+                    <a href="#">Proyectos</a>
+                    <a href="#">Comunidad</a>
+                </div>
+                <div class="link-column">
+                    <h4>Para Padres</h4>
+                    <a href="#">Seguridad</a>
+                    <a href="#">Preguntas Frecuentes</a>
+                    <a href="#">Contacto</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 InnovaCodeHub. Todos los derechos reservados.</p>
+            <p class="hacker-jr-tag">Construido para futuros Hackers Junior 💻</p>
+        </div>
+    </footer>
+
+    <div id="modal-login" class="modal"> <div class="modal-contenido">
+        <span id="btn-cerrar-login" class="cerrar-modal">&times;</span>
+        
+        <h2 id="titulo-modal">¡Hola, Explorador! 🧑‍🚀</h2>
+        <p>Inicia sesión o regístrate para guardar tu progreso.</p>
+        
+        <form id="form-login">
+            <input type="email" placeholder="Correo electrónico" required>
+            <input type="password" placeholder="Contraseña secreta" required>
+            <button type="submit" class="btn-submit">Entrar a la Nave 🚀</button>
+        </form>
+        
+        <p class="enlace-registro">
+            <a href="#" id="toggle-modo">¿No tienes cuenta? Regístrate</a>
+        </p>
+    </div>
+</div>
+
+    <!-- Cambiamos tu script normal a un módulo -->
+    <script type="module" src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,1427 @@
+/* Variables de Color y Fuentes */
+:root {
+    --bg-dark: #0F172A;
+    --bg-light: #1E1B4B;
+    --text-main: #FFFFFF;
+    --text-sub: #C7D2FE;
+    --accent-cyan: #06B6D4;
+    --accent-purple: #8B5CF6;
+    --btn-orange: #F97316;
+    --btn-orange-hover: #FB923C;
+    --font-titles: 'Fredoka', sans-serif;
+    --font-text: 'Inter', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-text);
+    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-light) 100%);
+    color: var(--text-main);
+    overflow-x: hidden;
+}
+
+/* Navegación */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    position: absolute;
+    width: 100%;
+    z-index: 100;
+}
+
+.logo {
+    font-family: var(--font-titles);
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+/* =========================================
+   🚑 FIX DE EMERGENCIA PARA EL LOGO GIGANTE
+   ========================================= */
+header img, 
+.logo img, 
+.navbar img {
+    max-width: 180px !important; /* Mantiene el logo a un tamaño decente */
+    height: auto !important;
+    object-fit: contain;
+}
+
+/* Para asegurar que el contenedor de la navegación no colapse */
+header, .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.btn-login {
+    background: transparent;
+    border: 2px solid var(--accent-cyan);
+    color: var(--accent-cyan);
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-login:hover {
+    background: var(--accent-cyan);
+    color: var(--bg-dark);
+}
+
+/* Hero Section */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 100px 5% 50px;
+}
+
+.hero-content {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    max-width: 1200px;
+    z-index: 10;
+}
+
+.hero-text {
+    flex: 1;
+}
+
+.hero-text h1 {
+    font-family: var(--font-titles);
+    font-size: 3.5rem;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.highlight {
+    background: linear-gradient(to right, var(--accent-cyan), var(--accent-purple));
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.hero-text p {
+    font-size: 1.2rem;
+    color: var(--text-sub);
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.btn-cta {
+    background: var(--btn-orange);
+    color: white;
+    border: none;
+    padding: 15px 35px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(249, 115, 22, 0.4);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.btn-cta:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 30px rgba(249, 115, 22, 0.7);
+    background: var(--btn-orange-hover);
+}
+
+.hero-visual {
+    flex: 1;
+}
+
+.visual-mockup {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 30px;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    animation: float 6s ease-in-out infinite;
+}
+
+/* Animaciones flotantes */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+}
+
+/* --- Modal de Login --- */
+/* --- Modal de Login --- */
+.modal {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    display: flex; /* Mantenemos el flexbox para centrar */
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0; /* Inicia INVISIBLE */
+    pointer-events: none; /* Inicia INTOCABLE */
+    transition: opacity 0.3s ease;
+}
+
+/* Esta clase es la que inyecta la vida y lo hace clickeable */
+.modal.activo {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Escondite de seguridad total */
+.modal.oculto {
+    display: none !important;
+}
+.modal-contenido {
+    background: var(--bg-light);
+    padding: 40px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    position: relative;
+    border: 2px solid var(--accent-purple);
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.3);
+}
+
+.cerrar-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-sub);
+}
+
+.cerrar-modal:hover { color: white; }
+
+#form-login input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    background: var(--accent-purple);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.enlace-registro {
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+
+.enlace-registro a { color: var(--accent-cyan); text-decoration: none; }
+
+logo-img {
+    height: 40px; /* Ajusta este valor según tu logo */
+    width: auto;
+}
+
+/* --- Sección de Confianza --- */
+.confianza {
+    padding: 80px 5%;
+    background-color: var(--bg-dark);
+    text-align: center;
+}
+
+.confianza-header {
+    max-width: 800px;
+    margin: 0 auto 50px;
+}
+
+.confianza-header h2 {
+    font-family: var(--font-titles);
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.confianza-header p {
+    color: var(--text-sub);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 40px 30px;
+    transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+    backdrop-filter: blur(10px);
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 15px 30px rgba(6, 182, 212, 0.15); /* Brillo cyan suave */
+    border-color: rgba(6, 182, 212, 0.3);
+}
+
+.card-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.card h3 {
+    font-family: var(--font-titles);
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: white;
+}
+
+.card p {
+    color: var(--text-sub);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+/* --- Mapa de la Misión --- */
+.mapa-mision {
+    padding: 80px 5%;
+    background: var(--bg-light);
+    position: relative;
+}
+
+.mapa-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.mapa-header h2 {
+    font-family: var(--font-titles);
+    font-size: 2.5rem;
+}
+
+.ruta-container {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    padding: 20px 0;
+}
+
+/* La línea que conecta los niveles */
+.linea-ruta {
+    position: absolute;
+    left: 40px; /* Alineada con los íconos */
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: 1;
+}
+
+.nivel {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 2;
+}
+
+.nivel-icono {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    background: var(--bg-dark);
+    border: 4px solid #334155;
+    transition: all 0.3s;
+}
+
+.nivel-info {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 20px 30px;
+    border-radius: 20px;
+    flex: 1;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.etiqueta-nivel {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent-cyan);
+    font-weight: bold;
+}
+
+.nivel h3 {
+    font-family: var(--font-titles);
+    font-size: 1.4rem;
+    margin: 5px 0;
+}
+
+/* --- Estados Gamificados --- */
+
+/* Completado */
+.nivel.completado .nivel-icono {
+    border-color: #10B981; /* Verde */
+    background: rgba(16, 185, 129, 0.2);
+}
+
+/* Activo (El que está jugando actualmente) */
+.nivel.activo .nivel-icono {
+    border-color: var(--btn-orange);
+    background: rgba(249, 115, 22, 0.2);
+    box-shadow: 0 0 20px rgba(249, 115, 22, 0.5);
+}
+
+.animacion-pulso {
+    animation: pulso 2s infinite;
+}
+
+@keyframes pulso {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Bloqueado */
+.nivel.bloqueado .nivel-info {
+    opacity: 0.5;
+}
+.nivel.bloqueado .nivel-icono {
+    border-style: dashed;
+}
+/* --- Galería (Sneak Peek) --- */
+.galeria {
+    padding: 100px 5%;
+    background: linear-gradient(to bottom, var(--bg-light), var(--bg-dark));
+    text-align: center;
+}
+
+.galeria-header h2 {
+    font-family: var(--font-titles);
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.galeria-header p {
+    color: var(--text-sub);
+    font-size: 1.1rem;
+    margin-bottom: 50px;
+}
+
+/* Sistema de Grid CSS para un diseño moderno */
+.grid-galeria {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    /* Esto permite que algunos elementos ocupen 2 columnas en pantallas grandes */
+    grid-auto-flow: dense; 
+}
+
+.item-galeria {
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.item-galeria:hover {
+    transform: scale(1.05);
+    z-index: 10;
+    box-shadow: 0 15px 40px rgba(139, 92, 246, 0.4); /* Brillo morado */
+}
+
+/* Clases auxiliares para la grid */
+@media (min-width: 768px) {
+    .ancho-doble {
+        grid-column: span 2;
+    }
+}
+
+/* Placeholders simulando las imágenes (Reemplázalos luego con <img> reales o background-image) */
+.imagen-placeholder {
+    height: 300px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 20px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.imagen-placeholder::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(to top, rgba(15, 23, 42, 0.9), transparent);
+}
+
+.imagen-placeholder span {
+    position: relative;
+    z-index: 2;
+    font-family: var(--font-titles);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.item-galeria:hover .imagen-placeholder span {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Colores temporales de fondo para los placeholders */
+.mblock-ui { background-color: #2563EB; } /* Azul simulando la app */
+.personaje { background-color: #EC4899; } /* Rosa vibrante */
+.juego-naves { background-color: #8B5CF6; } /* Morado espacio */
+.robotica { background-color: #10B981; } /* Verde tecnológico */
+
+/* --- Footer --- */
+.footer {
+    background-color: #0b1120; /* Aún más oscuro que el bg-dark para dar cierre */
+    padding: 60px 5% 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-brand {
+    flex: 1;
+    min-width: 300px;
+}
+
+.footer-brand h3 {
+    font-family: var(--font-titles);
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: var(--text-main);
+}
+
+.footer-brand p {
+    color: var(--text-sub);
+    line-height: 1.6;
+    max-width: 400px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 60px;
+}
+
+.link-column h4 {
+    font-family: var(--font-titles);
+    color: white;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+.link-column a {
+    display: block;
+    color: var(--text-sub);
+    text-decoration: none;
+    margin-bottom: 10px;
+    transition: color 0.3s;
+}
+
+.link-column a:hover {
+    color: var(--accent-cyan);
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.9rem;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.hacker-jr-tag {
+    color: var(--accent-purple);
+    font-weight: 600;
+}
+/* =========================================
+   📱 DISEÑO RESPONSIVE (Móviles y Tablets)
+   ========================================= */
+
+@media (max-width: 768px) {
+    
+    /* 1. Navegación */
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+        text-align: center;
+    }
+
+    /* 2. Hero Section */
+    .hero {
+        padding-top: 120px; /* Damos más espacio por si el menú crece */
+    }
+
+    .hero-content {
+        flex-direction: column; /* Apilamos el texto y la imagen de arriba hacia abajo */
+        text-align: center;
+        gap: 30px;
+    }
+
+    .hero-text h1 {
+        font-size: 2.5rem; /* Hacemos el título un poco más pequeño */
+    }
+
+    .hero-text p {
+        font-size: 1rem;
+    }
+
+    .visual-mockup {
+        height: 250px; /* Reducimos la altura de la imagen 3D en celulares */
+    }
+
+    /* 3. Mapa de la Misión */
+    .nivel {
+        flex-direction: column; /* El ícono va arriba de la tarjeta */
+        text-align: center;
+        gap: 15px;
+    }
+
+    .linea-ruta {
+        display: none; /* Ocultamos la línea lateral en celulares para que no descuadre */
+    }
+
+    .nivel-icono {
+        margin: 0 auto; /* Centramos el ícono del planeta/nivel */
+    }
+
+    /* 4. Footer */
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+}
+/* =========================================
+   🎮 DASHBOARD DEL ALUMNO (dashboard.html)
+   ========================================= */
+
+.dashboard-body {
+    background: var(--bg-dark);
+    margin: 0;
+    height: 100vh;
+    overflow: hidden; /* Evita el scroll largo, se ve como una app real */
+}
+
+.dashboard-container {
+    display: flex;
+    height: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+/* --- Panel Lateral (Sidebar) --- */
+.sidebar {
+    width: 280px;
+    background: rgba(255, 255, 255, 0.02);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.perfil-usuario {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.avatar {
+    font-size: 3.5rem;
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+    border: 3px solid var(--bg-light);
+}
+
+.perfil-usuario h2 {
+    font-family: var(--font-titles);
+    font-size: 1.2rem;
+    color: white;
+}
+
+.rango {
+    color: var(--accent-cyan);
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.menu-dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+}
+
+.menu-dashboard a {
+    text-decoration: none;
+    color: var(--text-sub);
+    padding: 15px;
+    border-radius: 15px;
+    font-weight: 600;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.menu-dashboard a:hover, .menu-dashboard a.activo {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    transform: translateX(5px);
+}
+
+.btn-salir {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-sub);
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-family: var(--font-text);
+    font-weight: bold;
+}
+
+.btn-salir:hover { 
+    background: rgba(239, 68, 68, 0.2); 
+    color: white; 
+    border-color: #ef4444; 
+}
+
+/* --- Área Principal (Cabina) --- */
+.dashboard-main {
+    flex: 1;
+    padding: 40px 60px;
+    overflow-y: auto;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.dashboard-header h1 {
+    font-family: var(--font-titles);
+    font-size: 2.2rem;
+}
+
+/* Barra de Experiencia (XP) */
+.barra-xp-container {
+    width: 300px;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.xp-texto {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--text-sub);
+}
+
+.barra-xp-fondo {
+    height: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.barra-xp-progreso {
+    height: 100%;
+    background: linear-gradient(to right, var(--accent-cyan), var(--accent-purple));
+    border-radius: 10px;
+    box-shadow: 0 0 10px var(--accent-cyan);
+    transition: width 1s ease-in-out;
+}
+
+/* Tarjeta de Misión Gigante */
+.mision-actual {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
+    border: 2px solid rgba(139, 92, 246, 0.3);
+    border-radius: 30px;
+    padding: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.mision-info {
+    position: relative;
+    z-index: 2;
+}
+
+.mision-info h2 {
+    font-family: var(--font-titles);
+    font-size: 2.2rem;
+    margin: 15px 0;
+    color: white;
+}
+
+.tag-urgente {
+    background: var(--btn-orange);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 0 10px rgba(249, 115, 22, 0.5);
+}
+
+.mision-info p {
+    color: var(--text-sub);
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+    max-width: 500px;
+    line-height: 1.6;
+}
+
+.btn-jugar {
+    background: #10B981; /* Verde Neón Gamer */
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 0 25px rgba(16, 185, 129, 0.4);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.btn-jugar:hover { 
+    transform: scale(1.05); 
+    box-shadow: 0 0 35px rgba(16, 185, 129, 0.7);
+}
+
+.planeta-holograma {
+    font-size: 9rem;
+    animation: floatDashboard 5s infinite ease-in-out;
+    filter: drop-shadow(0 0 30px var(--accent-purple));
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes floatDashboard {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(5deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
+/* Inventario / Insignias */
+.inventario h3 {
+    font-family: var(--font-titles);
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+}
+
+.grid-insignias {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.insignia {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s;
+}
+
+.insignia.ganada {
+    background: rgba(249, 115, 22, 0.15);
+    border-color: var(--btn-orange);
+    box-shadow: inset 0 0 20px rgba(249, 115, 22, 0.2);
+    cursor: pointer;
+}
+
+.insignia.ganada:hover {
+    transform: translateY(-5px) scale(1.1);
+}
+
+.insignia.bloqueada {
+    opacity: 0.3;
+    filter: grayscale(100%);
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* =========================================
+   📱 DASHBOARD RESPONSIVE 
+   ========================================= */
+@media (max-width: 1024px) {
+    .dashboard-body { height: auto; overflow: visible; }
+    .dashboard-container { flex-direction: column; }
+    
+    .sidebar { 
+        width: 100%; 
+        border-right: none; 
+        border-bottom: 1px solid rgba(255,255,255,0.1); 
+        flex-direction: row; 
+        align-items: center; 
+        padding: 15px 20px; 
+    }
+    
+    .perfil-usuario { margin-bottom: 0; display: flex; align-items: center; gap: 15px; text-align: left; }
+    .avatar { width: 50px; height: 50px; font-size: 1.5rem; margin: 0; }
+    .menu-dashboard { display: none; /* Oculto en móvil por ahora */ }
+    
+    .dashboard-main { padding: 20px; }
+    
+    .mision-actual { flex-direction: column; text-align: center; gap: 30px; }
+    .mision-info p { margin: 20px auto; }
+}
+/* =========================================
+   🎮 PANTALLA DE MISIÓN (mision.html)
+   ========================================= */
+
+.mision-body {
+    background: var(--bg-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.mision-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background: rgba(255, 255, 255, 0.02);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.btn-volver {
+    color: var(--text-sub);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.btn-volver:hover { color: white; }
+
+.mision-titulo-top { text-align: center; }
+.mision-titulo-top h2 { font-family: var(--font-titles); font-size: 1.5rem; margin: 0; }
+.xp-actual { color: var(--btn-orange); font-weight: bold; font-size: 1.2rem; }
+
+.mision-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding: 40px;
+    flex: 1;
+}
+
+/* Panel Izquierdo */
+.video-container {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: black;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 30px;
+    border: 2px solid rgba(139, 92, 246, 0.3);
+}
+
+.video-placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(45deg, #1e1b4b, #312e81);
+    color: white; font-weight: bold; cursor: pointer;
+}
+
+.objetivos-mision h3 {
+    font-family: var(--font-titles);
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.objetivos-mision p { color: var(--text-sub); margin-bottom: 20px; }
+
+/* Checklist Gamer */
+.checklist-gamer { list-style: none; padding: 0; }
+.checklist-gamer li { margin-bottom: 15px; }
+
+.checklist-gamer label {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 1.1rem;
+}
+
+.checklist-gamer label:hover { background: rgba(255, 255, 255, 0.1); }
+
+.tarea-checkbox { display: none; }
+
+.custom-checkbox {
+    width: 24px; height: 24px;
+    border: 2px solid var(--text-sub);
+    border-radius: 6px;
+    display: inline-block;
+    position: relative;
+    transition: 0.2s;
+}
+
+.tarea-checkbox:checked + .custom-checkbox {
+    background: var(--btn-orange);
+    border-color: var(--btn-orange);
+}
+
+.tarea-checkbox:checked + .custom-checkbox::after {
+    content: '✔';
+    color: white;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+}
+
+.tarea-checkbox:checked ~ code { opacity: 0.5; }
+
+/* Panel Derecho */
+.alerta-pista {
+    background: rgba(6, 182, 212, 0.1);
+    border-left: 4px solid var(--accent-cyan);
+    padding: 15px 20px;
+    border-radius: 0 15px 15px 0;
+    margin-bottom: 30px;
+    color: var(--text-sub);
+}
+
+.mblock-mockup {
+    background: white; /* Simulando la app brillante */
+    border-radius: 20px;
+    height: 350px;
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+
+.mblock-header {
+    background: #e2e8f0;
+    padding: 10px 20px;
+    display: flex;
+    gap: 20px;
+    color: #334155;
+    font-weight: bold;
+}
+
+.mblock-body {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background: #f8fafc;
+}
+
+.codigo-referencia { color: #94a3b8; font-weight: bold; text-align: center; }
+
+.btn-completar {
+    width: 100%;
+    padding: 20px;
+    border-radius: 20px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    font-family: var(--font-titles);
+    border: none;
+    transition: all 0.3s;
+}
+
+.btn-completar.bloqueado {
+    background: #334155;
+    color: #94a3b8;
+    cursor: not-allowed;
+}
+
+.btn-completar.desbloqueado {
+    background: #10B981; /* Verde victoria */
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 0 30px rgba(16, 185, 129, 0.5);
+    animation: pulso 2s infinite;
+}
+
+@media (max-width: 900px) {
+    .mision-layout { grid-template-columns: 1fr; }
+}
+.oculto {
+    display: none !important;
+}
+/* =========================================
+   🏆 SALA DE TROFEOS 
+   ========================================= */
+.grid-trofeos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.trofeo-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.trofeo-card:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.trofeo-icono {
+    font-size: 4rem;
+    margin-bottom: 15px;
+    display: inline-block;
+}
+
+/* Efectos para trofeos ganados */
+.trofeo-card.ganado {
+    border-color: rgba(249, 115, 22, 0.3); /* Borde naranja */
+}
+
+.trofeo-card.ganado .trofeo-icono {
+    filter: drop-shadow(0 0 20px var(--btn-orange));
+    animation: floatDashboard 4s infinite ease-in-out;
+}
+
+/* Efectos para trofeos bloqueados */
+.trofeo-card.bloqueado .trofeo-icono {
+    filter: grayscale(100%);
+    opacity: 0.2;
+}
+.trofeo-card.bloqueado h3 { color: #64748b; }
+.trofeo-card.bloqueado p { color: #475569; }
+
+.trofeo-card h3 {
+    color: white;
+    font-family: var(--font-titles);
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+.trofeo-card p {
+    color: var(--text-sub);
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+/* =========================================
+   ⚙️ AJUSTES DE LA NAVE
+   ========================================= */
+.grid-ajustes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.ajustes-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.ajustes-card h3 {
+    color: white;
+    font-family: var(--font-titles);
+    font-size: 1.4rem;
+    margin-bottom: 25px;
+}
+
+.form-grupo {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-grupo label {
+    color: var(--text-sub);
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.form-grupo input {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #94a3b8; /* Texto gris simulando bloqueo */
+    padding: 12px 15px;
+    border-radius: 10px;
+    font-family: var(--font-text);
+    cursor: not-allowed;
+}
+
+.nota-seguridad {
+    font-size: 0.8rem;
+    color: var(--accent-cyan);
+    margin-top: 10px;
+}
+
+/* Interruptores estilo Videojuego (Toggles) */
+.opcion-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    color: white;
+    font-weight: 600;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 28px;
+}
+
+.switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #334155;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider { background-color: var(--accent-cyan); }
+input:focus + .slider { box-shadow: 0 0 1px var(--accent-cyan); }
+input:checked + .slider:before { transform: translateX(22px); }
+.slider.round { border-radius: 34px; }
+.slider.round:before { border-radius: 50%; }
+
+/* Tarjeta de Seguridad (Peligro) */
+.tarjeta-peligro {
+    grid-column: 1 / -1; /* Ocupa todo el ancho abajo */
+    border-color: rgba(239, 68, 68, 0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.tarjeta-peligro h3 { color: #ef4444; margin-bottom: 10px; }
+.info-peligro p { color: var(--text-sub); }
+
+.btn-peligro {
+    background: transparent;
+    border: 2px solid #ef4444;
+    color: #ef4444;
+    padding: 12px 25px;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-peligro:hover {
+    background: #ef4444;
+    color: white;
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+}
+/* =========================================
+   👁️ MODO DALTÓNICO (Accesibilidad)
+   ========================================= */
+/* Cuando el body tenga esta clase, sobreescribimos los colores problemáticos */
+body.modo-daltonico .btn-jugar {
+    background: #3B82F6; /* Cambia de Verde a Azul Brillante */
+    box-shadow: 0 0 25px rgba(59, 130, 246, 0.4);
+}
+
+body.modo-daltonico .btn-jugar:hover {
+    box-shadow: 0 0 35px rgba(59, 130, 246, 0.7);
+}
+
+body.modo-daltonico .nivel.completado .nivel-icono {
+    border-color: #3B82F6; /* Planetas completados en Azul */
+    background: rgba(59, 130, 246, 0.2);
+}
+
+body.modo-daltonico .insignia.ganada {
+    border-color: #3B82F6; /* Medallas en Azul en lugar de Naranja */
+    background: rgba(59, 130, 246, 0.15);
+}
+/* =========================================
+   👩‍🏫 TORRE DE CONTROL (Tabla de Alumnos)
+   ========================================= */
+.tabla-contenedor table td {
+    padding: 15px;
+    color: white;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 0.95rem;
+}
+
+.tabla-contenedor table tbody tr {
+    transition: background 0.3s;
+}
+
+/* Efecto al pasar el mouse por encima de un alumno */
+.tabla-contenedor table tbody tr:hover {
+    background: rgba(255,255,255,0.05);
+}
+
+.badge-nivel {
+    background: var(--btn-orange);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.85rem;
+    box-shadow: 0 0 10px rgba(249, 115, 22, 0.3);
+}
+
+.xp-texto-tabla {
+    color: var(--accent-cyan);
+    font-weight: 600;
+}
+/* =========================================
+   📸 ZONA DE CARGA DE EVIDENCIA
+   ========================================= */
+.zona-drop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    border: 3px dashed #cbd5e1;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    background: #f8fafc;
+}
+
+.zona-drop:hover {
+    background: rgba(16, 185, 129, 0.05);
+    border-color: #10B981; /* Verde neón al pasar el mouse */
+    transform: scale(0.98);
+}
+
+.icono-subir {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.nota-formatos {
+    font-size: 0.8rem;
+    color: #94a3b8;
+}

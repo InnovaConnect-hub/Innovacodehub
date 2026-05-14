@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torre de Control | InnovaCodeHub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-body">
+    <div class="dashboard-container">
+        
+        <!-- Menú Lateral del Profesor -->
+        <aside class="sidebar">
+            <div class="perfil-usuario">
+                <div class="avatar-container" style="background: linear-gradient(135deg, #ef4444, #f97316); box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);">
+                    <div class="avatar" id="avatar-profe">👑</div>
+                </div>
+                <h2 id="nombre-profe">Comandante</h2>
+                <p style="color: #ef4444; font-weight: bold; font-size: 0.8rem; letter-spacing: 1px;">MODO PROFESOR</p>
+            </div>
+            
+            <nav class="menu-dashboard">
+                <a href="#" class="activo">👥 Lista de Alumnos</a>
+                <!-- Aquí después podríamos poner un botón de 'Configurar Misiones' -->
+            </nav>
+            
+            <button class="btn-salir" onclick="window.location.href='index.html'">Volver al Inicio</button>
+        </aside>
+
+        <!-- Área Principal -->
+        <main class="dashboard-main">
+           <header class="dashboard-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                <div>
+                    <h1>📡 Torre de Control Galáctica</h1>
+                    <p style="color: var(--text-sub); margin-top: 10px;">Monitorea el progreso de todos los Hackers Junior registrados en la plataforma.</p>
+                </div>
+                <button id="btn-exportar" style="background: #10B981; color: white; border: none; padding: 12px 25px; border-radius: 12px; font-weight: bold; cursor: pointer; box-shadow: 0 0 15px rgba(16, 185, 129, 0.4); font-size: 1rem; transition: 0.3s;">
+                    📊 Descargar Reporte CSV
+                </button>
+            </header>
+
+            <div class="panel-alumnos" style="margin-top: 40px;">
+                <div class="tabla-contenedor" style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 20px; padding: 20px; overflow-x: auto;">
+                    
+                    <table style="width: 100%; text-align: left; border-collapse: collapse;">
+                        <thead>
+                            <tr style="border-bottom: 2px solid rgba(255,255,255,0.1);">
+                                <th style="padding: 15px; color: var(--text-sub);">Hacker Junior</th>
+                                <th style="padding: 15px; color: var(--text-sub);">Nivel Actual</th>
+                                <th style="padding: 15px; color: var(--text-sub);">Experiencia</th>
+                                <th style="padding: 15px; color: var(--text-sub);">Medallas</th>
+                                <th style="padding: 15px; color: var(--text-sub);">Acciones</th> <!-- LÍNEA NUEVA -->
+                            </tr>
+                        </thead>
+                        <tbody id="lista-alumnos-ui">
+                            <!-- Aquí JavaScript inyectará a los alumnos -->
+                            <tr>
+                                <td colspan="4" style="text-align: center; padding: 40px; color: white;">
+                                    Conectando con la base de datos de Firebase... 🔄
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Conectaremos el cerebro del profesor en el siguiente paso -->
+    <script type="module" src="profesor.js"></script>
+</body>
+</html>

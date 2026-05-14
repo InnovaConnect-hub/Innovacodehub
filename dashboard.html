@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cabina de Control | InnovaCodeHub</title>
+    <!-- Mismas fuentes que la Landing Page -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard-body">
+    
+    <div class="dashboard-container">
+        
+        <!-- Panel Lateral (Sidebar) -->
+        <aside class="sidebar">
+            <div class="perfil-usuario">
+                <div class="avatar">🧑‍🚀</div>
+                <h2>Explorador_Alex</h2>
+                <p class="rango">Hacker Novato</p>
+            </div>
+            
+            <nav class="menu-dashboard">
+                <!-- Agregamos data-target para saber qué pestaña abrir -->
+                <a href="#" class="activo" data-target="vista-cabina">🚀 Mi Cabina</a>
+                <a href="#" data-target="vista-mapa">🗺️ Mapa Estelar</a>
+                <a href="#" data-target="vista-medallas">🏆 Mis Medallas</a>
+                <a href="#" data-target="vista-ajustes">⚙️ Ajustes</a>
+            </nav>
+            
+            <button class="btn-salir" onclick="window.location.href='index.html'">Cerrar Sesión</button>
+        </aside>
+
+        <!-- Área Principal (Cabina Central) -->
+        <main class="dashboard-main">
+            
+            <!-- VISTA 1: LA CABINA (La que ya tenías) -->
+            <div id="vista-cabina" class="vista-seccion">
+                <header class="dashboard-header">
+                    <h1>¡Bienvenido a tu nave, <span id="nombre-header">Explorador</span>! 🛸</h1>
+                    <div class="barra-xp-container">
+                        <div class="xp-texto">
+                            <span id="nivel-texto">Nivel 1</span>
+                            <span id="xp-numeros">0 / 1000 XP</span>
+                        </div>
+                        <div class="barra-xp-fondo">
+                            <div class="barra-xp-progreso" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="mision-actual">
+                    <div class="mision-info">
+                        <span class="tag-urgente">🔥 Misión Pendiente</span>
+                        <h2>Cargando Misión...</h2>
+                        <p>...</p>
+                        <button class="btn-jugar">▶️ INICIAR MISIÓN</button>
+                    </div>
+                    <div class="mision-grafico">
+                        <div class="planeta-holograma">🪐</div>
+                    </div>
+                </section>
+
+                <section class="inventario">
+                    <h3>🎖️ Tu Inventario Espacial</h3>
+                    <!-- Aquí JavaScript inyectará las medallas reales -->
+                    <div class="grid-insignias" id="contenedor-medallas">
+                        Cargando medallas...
+                    </div>
+                </section>
+            </div>
+
+            <div id="vista-mapa" class="vista-seccion oculto">
+                <header class="dashboard-header">
+                    <h1>🗺️ Tu Mapa Estelar</h1>
+                    <p style="color: var(--text-sub); margin-top: 10px;">Aquí puedes ver todas tus misiones. Completa la actual para avanzar en la galaxia.</p>
+                </header>
+                
+                <!-- Aquí usaremos los mismos estilos del mapa de tu Landing Page -->
+                <div class="ruta-container" style="margin-top: 40px; padding: 20px;">
+                    <div class="linea-ruta"></div>
+                    
+                    <!-- JavaScript inyectará los 8 niveles aquí automáticamente -->
+                    <div id="contenedor-mapa-dinamico"></div>
+                </div>
+            </div>
+
+            <!-- VISTA 3: MEDALLAS Y LOGROS (Nueva) -->
+            <div id="vista-medallas" class="vista-seccion oculto">
+                <header class="dashboard-header">
+                    <h1>🏆 Sala de Trofeos</h1>
+                    <p style="color: var(--text-sub); margin-top: 10px;">Aquí se exhiben todas tus insignias de Hacker Junior. ¡Colecciónalas todas!</p>
+                </header>
+                
+                <!-- Contenedor donde JavaScript inyectará las tarjetas grandes -->
+                <div class="grid-trofeos" id="contenedor-sala-trofeos" style="margin-top: 40px;">
+                </div>
+            </div>
+            <!-- VISTA 4: AJUSTES (Nueva) -->
+           <!-- VISTA 4: AJUSTES -->
+            <div id="vista-ajustes" class="vista-seccion oculto">
+                <header class="dashboard-header">
+                    <h1>⚙️ Ajustes de la Nave</h1>
+                    <p style="color: var(--text-sub); margin-top: 10px;">Configura tu panel de control y personaliza tu experiencia espacial.</p>
+                </header>
+
+                <div class="grid-ajustes" style="margin-top: 40px;">
+
+                    <!-- Tarjeta de Perfil -->
+                    <div class="ajustes-card">
+                        <h3>🧑‍🚀 Perfil de Explorador</h3>
+                        <div class="form-grupo">
+                            <label>Nombre de Usuario</label>
+                            <!-- Los dejamos bloqueados (disabled) por seguridad infantil -->
+                            <input type="text" id="input-ajustes-nombre" disabled value="Cargando...">
+                        </div>
+                        <div class="form-grupo">
+                            <label>Correo Electrónico</label>
+                            <input type="text" id="input-ajustes-email" disabled value="Cargando...">
+                        </div>
+                        <p class="nota-seguridad">*Pide ayuda a tu profesor si necesitas cambiar estos datos de identificación.</p>
+                    </div>
+
+                    <!-- Tarjeta de Sistema / Juego -->
+                    <!-- Tarjeta de Sistema / Juego -->
+                    <div class="ajustes-card">
+                        <h3>🎮 Preferencias del Sistema</h3>
+
+                        <div class="opcion-toggle">
+                            <span>Efectos de Sonido</span>
+                            <label class="switch">
+                                <input type="checkbox" id="toggle-sonidos" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+
+                        <div class="opcion-toggle">
+                            <span>Música de Fondo</span>
+                            <label class="switch">
+                                <input type="checkbox" id="toggle-musica">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+
+                        <div class="opcion-toggle">
+                            <span>Modo Daltónico</span>
+                            <label class="switch">
+                                <input type="checkbox" id="toggle-daltonico">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Archivos de Audio Ocultos -->
+                    <!-- El atributo 'loop' hace que la música de fondo se repita infinitamente -->
+                    <audio id="audio-efecto" src="efecto.mp3"></audio>
+                    <audio id="audio-musica" src="musica.mp3" loop></audio>
+                    
+                    <!-- Tarjeta de Seguridad -->
+                    <div class="ajustes-card tarjeta-peligro">
+                        <div class="info-peligro">
+                            <h3>🔑 Llaves de Seguridad</h3>
+                            <p>¿Alguien descubrió tu contraseña secreta? Te enviaremos un holograma a tu correo para crear una nueva.</p>
+                        </div>
+                        <button id="btn-reset-password" class="btn-peligro">Cambiar Contraseña</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <script type="module" src="dashboard.js"></script>
+</body>
+</html>
