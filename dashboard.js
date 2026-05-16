@@ -103,33 +103,39 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function renderizarMapa(nivelDelUsuario) {
+   function renderizarMapa(nivelDelUsuario) {
         const contenedorMapa = document.getElementById('contenedor-mapa-dinamico');
         if(!contenedorMapa) return;
         contenedorMapa.innerHTML = ''; 
+        
         for (let i = 1; i <= 8; i++) {
             let estadoClase = 'bloqueado';
             let iconoNivel = '🔒';
             let animacion = '';
+            let botonHTML = ''; // Aquí guardaremos el botón correspondiente
 
             if (i < nivelDelUsuario) {
                 estadoClase = 'completado';
                 iconoNivel = '✅';
+                // NUEVO: Botón para regresar y repasar actividades ya hechas
+                botonHTML = `<button class="btn-repetir" style="margin-top: 10px; padding: 8px 20px; border-radius: 15px; border: 1px solid var(--accent-cyan); font-weight: bold; cursor: pointer; background: rgba(6, 182, 212, 0.1); color: var(--accent-cyan); transition: 0.3s;" onclick="window.location.href='mision.html?nivel=${i}'">🔁 REPETIR MISIÓN</button>`;
             } else if (i === nivelDelUsuario) {
                 estadoClase = 'activo';
                 iconoNivel = '🚀';
                 animacion = 'animacion-pulso';
+                // Botón del nivel actual
+                botonHTML = `<button class="btn-jugar" style="margin-top: 10px; padding: 8px 20px; border-radius: 15px; border: none; font-weight: bold; cursor: pointer; background: #10B981; color: white;" onclick="window.location.href='mision.html?nivel=${i}'">▶️ JUGAR AHORA</button>`;
             }
 
             const nombreDeLaMision = titulosMisiones[i] || "Misión Oculta";
+            
             contenedorMapa.innerHTML += `
                 <div class="nivel ${estadoClase}">
                     <div class="nivel-icono ${animacion}">${iconoNivel}</div>
                     <div class="nivel-info">
                         <span class="etiqueta-nivel">Nivel ${i}</span>
                         <h3 style="color: white; margin: 5px 0;">${nombreDeLaMision}</h3>
-                        ${estadoClase === 'activo' ? '<button class="btn-jugar" style="margin-top: 10px; padding: 8px 20px; border-radius: 15px; border: none; font-weight: bold; cursor: pointer; background: #10B981; color: white;" onclick="window.location.href=\'mision.html\'">▶️ JUGAR AHORA</button>' : ''}
-                    </div>
+                        ${botonHTML} </div>
                 </div>
             `;
         }
