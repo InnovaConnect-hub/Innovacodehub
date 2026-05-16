@@ -1546,4 +1546,10 @@ body.modo-daltonico .insignia.ganada {
     width: 100%; background: transparent; border: 1px solid #ef4444; color: #ef4444;
     padding: 12px; border-radius: 12px; cursor: pointer; transition: 0.3s; font-weight: bold; margin-top: 15px;
 }
-.btn-salir-flotante:hover { background: #ef4444; color: white; }
+.btn-salir-flotante:hover { background: #ef4444; color: white; 
+}
+.btn-repetir:hover {
+    background: var(--accent-cyan) !important;
+    color: var(--bg-dark) !important;
+    box-shadow: 0 0 15px var(--accent-cyan);
+}
