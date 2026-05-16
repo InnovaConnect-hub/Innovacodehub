@@ -40,16 +40,6 @@ const catalogoMedallas = [
 // 4. TODO LO QUE PASA CUANDO CARGA LA PÁGINA
 document.addEventListener('DOMContentLoaded', () => {
 
-    // =========================================
-    // 🔲 MOTOR DEL PERFIL PLEGABLE
-    // =========================================
-    const perfilInteractivo = document.getElementById('perfil-interactivo');
-    if (perfilInteractivo) {
-        perfilInteractivo.addEventListener('click', () => {
-            perfilInteractivo.classList.toggle('collapsed');
-        });
-    }
-
     let docRefGlobal = null; 
 
     // --- REFERENCIAS A LA PANTALLA ---
@@ -112,18 +102,16 @@ document.addEventListener('DOMContentLoaded', () => {
             let estadoClase = 'bloqueado';
             let iconoNivel = '🔒';
             let animacion = '';
-            let botonHTML = ''; // Aquí guardaremos el botón correspondiente
+            let botonHTML = ''; 
 
             if (i < nivelDelUsuario) {
                 estadoClase = 'completado';
                 iconoNivel = '✅';
-                // NUEVO: Botón para regresar y repasar actividades ya hechas
                 botonHTML = `<button class="btn-repetir" style="margin-top: 10px; padding: 8px 20px; border-radius: 15px; border: 1px solid var(--accent-cyan); font-weight: bold; cursor: pointer; background: rgba(6, 182, 212, 0.1); color: var(--accent-cyan); transition: 0.3s;" onclick="window.location.href='mision.html?nivel=${i}'">🔁 REPETIR MISIÓN</button>`;
             } else if (i === nivelDelUsuario) {
                 estadoClase = 'activo';
                 iconoNivel = '🚀';
                 animacion = 'animacion-pulso';
-                // Botón del nivel actual
                 botonHTML = `<button class="btn-jugar" style="margin-top: 10px; padding: 8px 20px; border-radius: 15px; border: none; font-weight: bold; cursor: pointer; background: #10B981; color: white;" onclick="window.location.href='mision.html?nivel=${i}'">▶️ JUGAR AHORA</button>`;
             }
 
@@ -161,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- CONEXIÓN CON FIREBASE (CON BLINDAJE ANTI-CRASH) ---
+    // --- CONEXIÓN CON FIREBASE (MODO GRADUACIÓN Y AUTO-MEDALLAS) ---
     onAuthStateChanged(auth, async (user) => {
         if (user) {
             try {
@@ -173,15 +161,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     docRefGlobal = docRef; 
 
                     const misAjustes = datosAlumno.ajustes || { daltonico: false, musica: false, sonidos: true };
-
-                    if (misAjustes.daltonico && toggleDaltonico) {
-                        toggleDaltonico.checked = true;
-                        document.body.classList.add('modo-daltonico');
-                    }
+                    if (misAjustes.daltonico && toggleDaltonico) { toggleDaltonico.checked = true; document.body.classList.add('modo-daltonico'); }
                     if (misAjustes.musica && toggleMusica) toggleMusica.checked = true;
                     if (misAjustes.sonidos === false && toggleSonidos) toggleSonidos.checked = false;
                     
-                    // Blindaje de seguridad
                     const correoSeguro = datosAlumno.email || user.email || "Cadete@nave";
                     const apodo = correoSeguro.split('@')[0];
                     const nivelSeguro = datosAlumno.nivel_actual || 1;
@@ -191,19 +174,64 @@ document.addEventListener('DOMContentLoaded', () => {
                     if(nombreLateralUI) nombreLateralUI.innerHTML = `Explorador_${apodo}`;
                     if(inputAjustesNombre) inputAjustesNombre.value = `Explorador_${apodo}`;
                     if(inputAjustesEmail) inputAjustesEmail.value = user.email;
-                    
-                    if(xpTextoUI) xpTextoUI.innerHTML = `<span>Nivel ${nivelSeguro}</span><span>${xpSegura} / 1000 XP</span>`;
-                    if(tituloMisionUI) tituloMisionUI.innerHTML = `Nivel ${nivelSeguro}: ${titulosMisiones[nivelSeguro] || "Misión Secreta"}`;
-                    if(descripcionMisionUI) descripcionMisionUI.innerHTML = "¡Prepárate para programar! La nave te necesita.";
 
-                    setTimeout(() => {
-                        let porcentaje = (xpSegura / 1000) * 100;
-                        if(barraXpUI) barraXpUI.style.width = `${porcentaje}%`;
-                    }, 500);
+                    // 🏆 SISTEMA ESCÁNER: AUTO-ENTREGA DE MEDALLAS
+                    let misMedallas = datosAlumno.medallas || [];
+                    let guardarNuevasMedallas = false;
 
-                    renderizarMedallas(datosAlumno.medallas || []);
-                    renderizarMapa(nivelSeguro);
-                    renderizarSalaTrofeos(datosAlumno.medallas || []);
+                    if (!misMedallas.includes("primer_ingreso")) { misMedallas.push("primer_ingreso"); guardarNuevasMedallas = true; }
+                    if (nivelSeguro > 1 && !misMedallas.includes("nivel_1_ok")) { misMedallas.push("nivel_1_ok"); guardarNuevasMedallas = true; }
+                    if (nivelSeguro > 3 && !misMedallas.includes("maestro_bucle")) { misMedallas.push("maestro_bucle"); guardarNuevasMedallas = true; }
+                    if (nivelSeguro > 8 && !misMedallas.includes("gran_despegue")) { misMedallas.push("gran_despegue"); guardarNuevasMedallas = true; }
+
+                    if (guardarNuevasMedallas) {
+                        await updateDoc(docRef, { medallas: misMedallas });
+                    }
+
+                    // 🎉 DETECCIÓN DE FIN DEL JUEGO (NIVEL 9 o mayor)
+                    if (nivelSeguro > 8) {
+                        if(tituloMisionUI) tituloMisionUI.innerHTML = "🎉 ¡Misión Cumplida, Comandante!";
+                        if(descripcionMisionUI) descripcionMisionUI.innerHTML = "¡Felicidades! Has completado todo tu entrenamiento y creaste tu propio videojuego. Eres oficialmente un Hacker Junior.";
+                        
+                        if(xpTextoUI) xpTextoUI.innerHTML = `<span>Hacker Graduado</span><span>1000 / 1000 XP</span>`;
+                        if(barraXpUI) barraXpUI.style.width = `100%`;
+
+                        if(btnJugar) {
+                            btnJugar.innerHTML = "🏆 VER MIS TROFEOS";
+                            btnJugar.style.background = "var(--accent-purple)";
+                            btnJugar.onclick = (e) => {
+                                e.preventDefault();
+                                const tabMedallas = document.querySelector('[data-target="vista-medallas"]');
+                                if(tabMedallas) tabMedallas.click();
+                            };
+                        }
+                        
+                        renderizarMapa(9); 
+
+                    } else {
+                        // 🚀 JUEGO NORMAL (Niveles del 1 al 8)
+                        if(xpTextoUI) xpTextoUI.innerHTML = `<span>Nivel ${nivelSeguro}</span><span>${xpSegura} / 1000 XP</span>`;
+                        if(tituloMisionUI) tituloMisionUI.innerHTML = `Nivel ${nivelSeguro}: ${titulosMisiones[nivelSeguro] || "Misión Secreta"}`;
+                        if(descripcionMisionUI) descripcionMisionUI.innerHTML = "¡Prepárate para programar! La nave te necesita.";
+
+                        setTimeout(() => {
+                            let porcentaje = (xpSegura / 1000) * 100;
+                            if(barraXpUI) barraXpUI.style.width = `${porcentaje}%`;
+                        }, 500);
+
+                        renderizarMapa(nivelSeguro);
+
+                        if(btnJugar) {
+                            btnJugar.onclick = () => {
+                                btnJugar.innerHTML = "🚀 ¡DESPEGANDO!...";
+                                btnJugar.style.background = "#F97316"; 
+                                setTimeout(() => { window.location.href = 'mision.html?nivel=' + nivelSeguro; }, 800);
+                            };
+                        }
+                    }
+
+                    renderizarMedallas(misMedallas);
+                    renderizarSalaTrofeos(misMedallas);
                     
                 } else {
                     if(tituloMisionUI) tituloMisionUI.innerHTML = "⚠️ Perfil no encontrado";
@@ -219,14 +247,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- BOTONES INTERACTIVOS ---
-    if(btnJugar) {
-        btnJugar.addEventListener('click', () => {
-            btnJugar.innerHTML = "🚀 ¡DESPEGANDO!...";
-            btnJugar.style.background = "#F97316"; 
-            setTimeout(() => { window.location.href = 'mision.html'; }, 800);
-        });
-    }
-
     if(btnSalir) {
         btnSalir.addEventListener('click', () => {
             signOut(auth).then(() => { window.location.href = "index.html"; });
@@ -287,13 +307,11 @@ const inicializarBurbuja = () => {
     const menuFlotante = document.getElementById('menu-flotante');
 
     if (btnBurbuja && menuFlotante) {
-        // Al hacer clic en el astronauta
         btnBurbuja.addEventListener('click', (e) => {
-            e.stopPropagation(); // Evita que se cierre al instante
+            e.stopPropagation(); 
             menuFlotante.classList.toggle('oculto');
         });
 
-        // Cerrar el menú si dan clic en cualquier otra parte de la pantalla
         document.addEventListener('click', (e) => {
             if (!menuFlotante.contains(e.target) && e.target !== btnBurbuja) {
                 menuFlotante.classList.add('oculto');
