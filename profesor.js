@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const docSnap = await getDoc(docRef);
 
             // 1. SEGURIDAD: Verificar si es profe
-            if (docSnap.exists() && docSnap.data().rol !== "profesor") {
+            if (docSnap.exists() && docSnap.data().rol !== "teacher") {
                 alert("⛔ ACCESO DENEGADO: Área restringida solo para Comandantes.");
                 window.location.href = "dashboard.html"; 
                 return; 
