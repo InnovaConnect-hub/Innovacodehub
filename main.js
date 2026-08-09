@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     const docRef = doc(db, "usuarios", usuario.uid);
                     const docSnap = await getDoc(docRef);
-
+console.log("El rol detectado en la base de datos es:", docSnap.data().rol);
                    setTimeout(() => {
     if (docSnap.exists() && docSnap.data().rol === "teacher") {
         window.location.href = "profesor.html";
