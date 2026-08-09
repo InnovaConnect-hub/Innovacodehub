@@ -132,13 +132,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     const docRef = doc(db, "usuarios", usuario.uid);
                     const docSnap = await getDoc(docRef);
 
-                    setTimeout(() => {
-                        if (docSnap.exists() && docSnap.data().rol === "profesor") {
-                            window.location.href = "profesor.html";
-                        } else {
-                            window.location.href = "dashboard.html";
-                        }
-                    }, 800);
+                   setTimeout(() => {
+    if (docSnap.exists() && docSnap.data().rol === "teacher") {
+        window.location.href = "profesor.html";
+    } else {
+        window.location.href = "dashboard.html";
+    }
+}, 800);
                 }
             } catch (error) {
                 console.error("Error en autenticación: ", error);
